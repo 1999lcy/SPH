@@ -32,7 +32,7 @@
             </h1>
             <div class="searchArea">
                 <form action="###" class="searchForm">
-                    <input type="text" id="autocomplete" class="input-error input-xxlarge" />
+                    <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="keyword" />
                     <button class="sui-btn btn-xlarge btn-danger" type="button" @click="goSearch">
                         搜索
                     </button>
@@ -42,12 +42,30 @@
     </header>
 </template>
 <script>
+import router from "@/router";
 export default {
     name: 'Header',
+    data() {
+        return {
+            keyword: '',
+        }
+    },
     methods: {
         goSearch() {
-            console.log(this);
-            this.$router.push("/search");
+            self = this;
+            //代表的是如果有query参数也带过去
+            if (this.$route.query) {
+                let loction = {
+                    name: "search",
+                    params: { keyword: this.keyword || undefined },
+                };
+                loction.query = this.$route.query;
+                console.log("loction:\n", loction);
+                //push无效
+                console.log(self.$router.push);
+                self.$router.push(loction);
+                console.log("route:\n", this.$route);
+            }
         },
     }
 }
