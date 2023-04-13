@@ -10,6 +10,10 @@ Vue.component('TypeNav', TypeNav);
 
 Vue.config.productionTip = false
 
+//在入口文件中引入一次模块，让它执行一次，就跟引入样式一样，引入mock
+import '@/mock/mockServe';
+
+import 'swiper/css/swiper.css';
 
 new Vue({
   render: h => h(App),
